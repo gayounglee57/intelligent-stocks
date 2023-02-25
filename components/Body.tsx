@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Table } from "./Table";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const statsUrl = "/api/stats";
+import { Table } from "./Table";
+import { TransitionText } from "./TransitionText";
 
+import { mockStatsData } from "../__tests__/mockStatsData";
+import { mockBalanceData } from "../__tests__/mockBalanceData";
+
+const statsUrl = "/api/stats";
+const balanceUrl = "/api/balanceSheet";
+
+// can i move to hooks folder and create a hook to use for useBalanceSheet as well?
 function useStats(symbol: string) {
   return useQuery(
     "stats-" + symbol,
@@ -16,6 +23,24 @@ function useStats(symbol: string) {
   );
 }
 
+function useBalance(symbol: string) {
+  return useQuery(
+    "balance-sheet-" + symbol,
+    async () => {
+      const { data } = await axios.get(balanceUrl, { params: { symbol } });
+      return data;
+    },
+    { enabled: false, staleTime: 1000 * 60 * 60 }
+  );
+}
+
+function getMockStatsData() {
+  return mockStatsData;
+}
+function getMockBalanceData() {
+  return mockBalanceData;
+}
+
 export function Body() {
   const [ticker, setTicker] = useState("");
 
@@ -25,6 +50,12 @@ export function Body() {
     data: statsData,
     refetch: statsRefetch,
   } = useStats(ticker);
+  const {
+    isLoading: isBalanceLoading,
+    error: balanceError,
+    data: balanceData,
+    refetch: balanceRefetch,
+  } = useBalance(ticker);
 
   const handleChange = (e) => {
     setTicker(e.target.value);
@@ -32,10 +63,18 @@ export function Body() {
 
   const handleSubmit = (e) => {
     statsRefetch();
+    balanceRefetch();
     e.preventDefault();
   };
 
-  console.log("statsData", statsData);
+  // const statsData = getMockStatsData();
+  // const balanceData = getMockBalanceData();
+  // console.log("statsData", statsData);
+  // console.log("balanceSheetData", balanceData);
+
+  if (isStatsLoading || isBalanceLoading)
+    return <TransitionText text={"Loading"} />;
+  if (statsError || balanceError) return <TransitionText text={"Error"} />;
 
   return (
     <div className="p-4 mb-0 text-center flex flex-col items-center">
