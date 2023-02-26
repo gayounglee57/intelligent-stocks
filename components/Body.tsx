@@ -34,12 +34,12 @@ function useBalance(symbol: string) {
   );
 }
 
-function getMockStatsData() {
-  return mockStatsData;
-}
-function getMockBalanceData() {
-  return mockBalanceData;
-}
+// function getMockStatsData() {
+//   return mockStatsData;
+// }
+// function getMockBalanceData() {
+//   return mockBalanceData;
+// }
 
 export function Body() {
   const [ticker, setTicker] = useState("");
@@ -101,7 +101,7 @@ export function Body() {
         </button>
       </form>
 
-      <Table />
+      <Table statsData={statsData} balanceData={balanceData} />
     </div>
   );
 }

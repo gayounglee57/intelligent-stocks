@@ -21,6 +21,7 @@ export default function App() {
         <HeaderText />
         <Body />
       </QueryClientProvider>
+      {/* link to about page not working */}
       <footer className="flex flex-1 py-4 border-t-neutral-100 border-t-2 justify-center items-center">
         <Link href="/about" className="text-primary font-bold hover:underline">
           About
