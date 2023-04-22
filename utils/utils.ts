@@ -30,11 +30,11 @@ interface IAnnualLongTermDebt {
 export function getMainStats(
   defaultKeyStatistics: IDefaultKeyStatistics
 ): IMainStats {
-  const sharesOutstanding: number = defaultKeyStatistics.sharesOutstanding.raw;
-  const netIncome: IRawFormatted = defaultKeyStatistics.netIncomeToCommon;
-  const epsTtm: number = defaultKeyStatistics.trailingEps.raw;
-  const bookValue: number = defaultKeyStatistics.bookValue.raw;
-  const epsMostRecent: number = netIncome.raw / sharesOutstanding;
+  const sharesOutstanding: number = defaultKeyStatistics?.sharesOutstanding.raw;
+  const netIncome: IRawFormatted = defaultKeyStatistics?.netIncomeToCommon;
+  const epsTtm: number = defaultKeyStatistics?.trailingEps.raw;
+  const bookValue: number = defaultKeyStatistics?.bookValue.raw;
+  const epsMostRecent: number = netIncome?.raw / sharesOutstanding;
   const totalAssets: number = bookValue * sharesOutstanding;
 
   return {
@@ -54,7 +54,7 @@ export function getLatestLongTermDebt(timeSeries): number {
   const annualLongTermDebts: [IAnnualLongTermDebt] =
     timeSeries?.annualLongTermDebt;
   const latestLongTermDebtReport: IAnnualLongTermDebt =
-    annualLongTermDebts[annualLongTermDebts.length - 1];
+    annualLongTermDebts[annualLongTermDebts?.length - 1];
   return latestLongTermDebtReport?.reportedValue?.raw;
 }
 

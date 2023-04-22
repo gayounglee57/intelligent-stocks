@@ -1,45 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useQuery } from "react-query";
-
 import { Table } from "./Table";
 import { TransitionText } from "./TransitionText";
 
 import { mockStatsData } from "../__tests__/mockStatsData";
 import { mockBalanceData } from "../__tests__/mockBalanceData";
-
-const statsUrl = "/api/stats";
-const balanceUrl = "/api/balanceSheet";
-
-// can i move to hooks folder and create a hook to use for useBalanceSheet as well?
-function useStats(symbol: string) {
-  return useQuery(
-    "stats-" + symbol,
-    async () => {
-      const { data } = await axios.get(statsUrl, { params: { symbol } });
-      return data;
-    },
-    { enabled: false, staleTime: 1000 * 60 * 60 }
-  );
-}
-
-function useBalance(symbol: string) {
-  return useQuery(
-    "balance-sheet-" + symbol,
-    async () => {
-      const { data } = await axios.get(balanceUrl, { params: { symbol } });
-      return data;
-    },
-    { enabled: false, staleTime: 1000 * 60 * 60 }
-  );
-}
-
-// function getMockStatsData() {
-//   return mockStatsData;
-// }
-// function getMockBalanceData() {
-//   return mockBalanceData;
-// }
+import { MockTable } from "./MockTable";
+import { useStats } from "../hooks/useStats";
+import { useBalance } from "../hooks/useBalance";
 
 export function Body() {
   const [ticker, setTicker] = useState("");
@@ -69,8 +36,9 @@ export function Body() {
 
   // const statsData = getMockStatsData();
   // const balanceData = getMockBalanceData();
-  // console.log("statsData", statsData);
-  // console.log("balanceSheetData", balanceData);
+
+  console.log("statsData", statsData);
+  console.log("balanceData", balanceData);
 
   if (isStatsLoading || isBalanceLoading)
     return <TransitionText text={"Loading"} />;
@@ -101,7 +69,11 @@ export function Body() {
         </button>
       </form>
 
-      <Table statsData={statsData} balanceData={balanceData} />
+      {statsData && balanceData ? (
+        <Table statsData={statsData} balanceData={balanceData} />
+      ) : (
+        <MockTable />
+      )}
     </div>
   );
 }

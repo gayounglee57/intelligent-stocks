@@ -14,9 +14,9 @@ import {
 
 export const Table = ({ statsData, balanceData }) => {
   const defaultKeyStatistics =
-    statsData.quoteSummary?.result[0].defaultKeyStatistics;
-  const timeSeries = balanceData.timeSeries;
-  const priceValue = balanceData.price?.regularMarketPrice?.raw;
+    statsData?.quoteSummary?.result[0].defaultKeyStatistics;
+  const timeSeries = balanceData?.timeSeries;
+  const priceValue = balanceData?.price?.regularMarketPrice?.raw;
   const { sharesOutstanding, epsMostRecent, epsTtm, bookValue, totalAssets } =
     getMainStats(defaultKeyStatistics);
   const latestLongTermDebt: number = getLatestLongTermDebt(timeSeries);

@@ -1,10 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <main className="py-4 flex flex-1 flex-col	justify-center items-center">
       <Head>
         <title>Intelligent stocks</title>
         <meta
@@ -14,18 +13,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>About</h1>
+      <div className="flex min-h-screen flex-col p-4 m-10 mb-0 text-center">
+        <h1 className="text-primary text-6xl mb-10">Intelligent stocks</h1>
+        <p className="text-secondary my-4 text-2xl">About</p>
+        <p className="text-secondary my-4 text-l">
+          This tool shows if a stock is an intelligent pick or not. It uses
+          principles from the Intelligent Investor book and Yahoo Finance API.
+        </p>
+      </div>
 
-        <p className={styles.description}>Hello</p>
-      </main>
-
-      <footer className={styles.footer}>
+      <footer className="flex w-full pt-4 border-t-neutral-100 border-t-2 justify-center items-center">
         <Link href="/" className="text-primary font-bold hover:underline">
-          Home
+          <div>Home</div>
         </Link>
         <span>🪀</span>
       </footer>
-    </div>
+    </main>
   );
 }
