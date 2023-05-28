@@ -4,7 +4,6 @@ import axios from "axios";
 const balanceUrl = "/api/balanceSheet";
 
 export function useBalance(symbol: string) {
-  console.log("inside useBalance");
   return useQuery(
     "balance-sheet-" + symbol,
     async () => {

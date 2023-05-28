@@ -18,7 +18,8 @@ export default function Home() {
         <p className="text-secondary my-4 text-2xl">About</p>
         <p className="text-secondary my-4 text-l">
           This tool shows if a stock is an intelligent pick or not. It uses
-          principles from the Intelligent Investor book and Yahoo Finance API.
+          Yahoo Finance API data and principles from the Intelligent Investor
+          book.
         </p>
       </div>
 

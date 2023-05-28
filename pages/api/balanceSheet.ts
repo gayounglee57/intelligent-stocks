@@ -16,7 +16,6 @@ function getOptions(symbol: string, url: string): AxiosRequestConfig<any> {
 }
 
 async function balanceSheet(req, res) {
-  console.log("about to call balanceSheetUrl with req", req.query);
   const { query } = req;
   const options = getOptions(query.symbol, balanceSheetUrl);
   const { data } = await axios.get(balanceSheetUrl, options);

@@ -15,7 +15,6 @@ function getOptions(symbol: string, url: string): AxiosRequestConfig<any> {
 }
 
 async function stats(req, res) {
-  console.log("about to call api with req", req.query);
   const { query } = req;
   const options = getOptions(query.symbol, statsUrl);
   const { data } = await axios.get(statsUrl, options);
